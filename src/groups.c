@@ -84,6 +84,18 @@ int find_oddeven(int array[], int nproc){
     return count ;
 }
 
+void test_find_oddeven(int rank, int ranks[],int size_array_ranks){
+
+     //test function for find_oddeven()
+    printf("(rank=%i) array_size=%i\n",rank,size_array_ranks);
+
+    for(int j=0; j< size_array_ranks; ++j){
+        printf("(rank=%i) prime=%i ",rank,ranks[j] );
+    }
+    printf("Done from rank=%i\n",rank);
+    
+}
+
 
 int main (int argc, char** argv){
 
@@ -118,7 +130,7 @@ int main (int argc, char** argv){
                 MPI_Comm_size(prime_comm, &prime_size);
             }
 
-            printf("WORLD RANK/SIZE: %d/%d --- PRIME RANK/SIZE: %d/%d\n",rank, world_size, prime_rank, prime_size);
+            printf("WORLD RANK/SIZE: %d/%d --- ODD RANK/SIZE: %d/%d\n",rank, world_size, prime_rank, prime_size);
             MPI_Group_free(&prime_group);
 
             if (MPI_COMM_NULL != prime_comm) {
@@ -128,15 +140,7 @@ int main (int argc, char** argv){
 
     }
  
-    /* //test function for find_oddeven() 
-    printf("rank=%i array_size=%i\n",rank,size_array_ranks);
-    
-    for(int j=0; j< size_array_ranks; ++j){
-        printf("rank=%i prime=%i ",rank,ranks[j] );
-    }
-    printf("(rank=%i) done\n",rank);
-    */
-    
+    //test_find_oddeven(rank,ranks,size_array_ranks);    
 
     MPI_Group_free(&world_group);
     MPI_Finalize();

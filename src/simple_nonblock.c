@@ -26,6 +26,7 @@ int main(argc,argv) int argc; char *argv[];
         rc = MPI_Isend(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD, &req[1]);
     }
    MPI_Waitall (2 , req , stats );
+   //this only works because we have this waitall; If we used blocking comm, The order of  MPI_recv and MPI_sendshould have been inverted at rank 0 and rank 1, otherwise, we will have a deadlock;
 
     rc = MPI_Get_count(&stats[0], MPI_CHAR, &count);
     printf("Task %d: Received %d char(s) from task %d with tag %d \n",       rank, count, stats[0].MPI_SOURCE, stats[0].MPI_TAG);
